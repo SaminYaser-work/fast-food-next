@@ -27,7 +27,6 @@ export default function Outlets() {
     const { longitude, latitude } = position.coords;
     setCoords({ lon: longitude, lat: latitude });
     getLocations({ lon: longitude, lat: latitude });
-    // console.log(`Longitude: ${longitude} | Latitude: ${latitude}`);
   };
 
   const positionDenied = () => {
