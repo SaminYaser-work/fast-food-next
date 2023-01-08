@@ -1,3 +1,54 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,800;0,900;1,100;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    /* font-family: 'Poppins', sans-serif; */
+    font-family: 'Rowdies';
+    /* background-color: #313131; */
+    /* background-image: url("../public/bg.png");
+    background-repeat: no-repeat; 
+    background-position: center;
+    background-attachment: fixed;       
+    webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height:100%;
+    width:100%;  */
+}
+
+.circle {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    width: 230vw;
+    height: 60vh;
+    overflow: auto;
+    background: rgb(250,216,135);
+    background: linear-gradient(180deg, rgba(250,216,135,1) 0%, rgba(237,182,30,1) 100%);
+    clip-path: circle(40% at 50% 170%);
+    z-index: -1;
+}
+
+.hero_shadow {
+    filter: drop-shadow(4px 8px 5px #222);
+}
+
+@media (max-width: 768px) {
+    .circle {
+        /* width: 200vw;
+        height: 35%; */
+        /* clip-path: circle(80% at 50% 150%); */
+        top: 30%;
+        clip-path: circle(50% at 50% 100%);
+    }
+}

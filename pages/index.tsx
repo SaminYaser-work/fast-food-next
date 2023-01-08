@@ -1,86 +1,159 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import React from "react";
+import Outlets from "../components/Outlets";
 
 const Home: NextPage = () => {
+  const emailRef = React.useRef<HTMLInputElement>(null);
+  const messageRef = React.useRef<HTMLTextAreaElement>(null);
+
+  const focusInput = (e: React.MouseEvent<HTMLElement>) => {
+    if (e.currentTarget.id === "p_email") {
+      emailRef.current?.focus();
+    } else if (e.currentTarget.id === "p_mes") {
+      messageRef.current?.focus();
+    }
+  };
+
+  // bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-slate-100 via-rose-300 to-rose-500
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
+    <div className="w-full flex justify-center items-center">
       <Head>
-        <title>Create Next App</title>
+        <title>SunBux</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="true"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap"
+          rel="stylesheet"
+        />
       </Head>
 
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
+      <main className="flex flex-col overflow-hidden min-w-full gap-10">
+        <section className="bg-gradient-to-b from-white via-rose-100 to-rose-200 shadow-[0px_20px_20px] shadow-rose-200">
+          <div className="flex flex-col md:flex-row justify-center items-center min-h-[50vh]">
+            <div className="text-black flex flex-col item-center justify-center mx-2 text-center">
+              <div className="flex flex-col place-items-center">
+                <h1 className="text-3xl md:text-6xl mb-2 md:max-w-lg font-medium">
+                  Best{" "}
+                  <span className="text-red-500 font-black">
+                    Fried Chicken{" "}
+                  </span>{" "}
+                  You Have Ever Tasted
+                </h1>
+                <p className="text-base md:text-3xl text-slate-600">
+                  No dead chickens, <i>We promise!*</i>
+                </p>
 
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
+                <a href="#locations">
+                  <button
+                    type="button"
+                    className="bg-rose-500 px-4 py-2 text-white text-3xl mt-10 rounded-xl w-fit shadow-lg hover:bg-rose-600 transition duration-200 ease-in-out hover:shadow-xl"
+                  >
+                    Order Now &rarr;
+                  </button>
+                </a>
+              </div>
+            </div>
 
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and its API.
-            </p>
-          </a>
+            <div className="grid place-content-center">
+              <div className="mb-4 relative object-contain w-96 h-56 md:w-[40rem] md:h-[20rem]">
+                <Image
+                  className="hero_shadow"
+                  src={"/hero.png"}
+                  objectFit="contain"
+                  fill
+                  alt="image of fried chicken"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
 
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        <section
+          id="howitworks"
+          className="mx-5 md:mx-20 grid place-content-center min-h-[50vh]"
         >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
-    </div>
-  )
-}
+          <div className="flex flex-col md:flex-row items-center md:items-start justify-between md:gap-10">
+            <p className="bg-pink-500 md:hidden text-white px-4 py-2 rounded-full w-fit mb-4 md:mb-10 font-thin text-sm">
+              How it Works
+            </p>
+            <div className="bg-pink-600 rounded-3xl shadow-xl">
+              <Image
+                className="w-[15rem] md:w-[25rem] rotate-[10deg]"
+                src={"/mobile.png"}
+                height={500}
+                width={500}
+                alt="image of fried chicken"
+              />
+            </div>
+            <div className="text-center md:text-left mt-8 md:max-w-xs">
+              <p className="bg-pink-500 text-white hidden md:block px-4 py-2 rounded-full w-fit mb-2 md:mb-10 font-thin text-sm">
+                How it Works
+              </p>
+              <h4 className="text-3xl md:text-5xl mb-2">We are near you!</h4>
+              <p className="font-thin text-xl md:text-2xl">
+                Our vans are everywhere, we observe your every step. Rebelling
+                is futile.
+              </p>
+            </div>
+          </div>
+        </section>
 
-export default Home
+        <section id="locations">
+          <Outlets />
+        </section>
+
+        <section
+          id="support"
+          className="mx-5 md:mx-20 grid place-content-center my-16"
+        >
+          <div className="flex flex-col items-center justify-center gap-2 bg-slate-100 p-10 rounded-2xl shadow-lg">
+            <h4 className="text-4xl mb-5">Get in touch with us!</h4>
+            <label htmlFor="email" className="hidden"></label>
+            <div
+              onClick={focusInput}
+              id="p_email"
+              className="border-2 rounded-md px-4 py-2 bg-white w-full focus-within:border-purple-400"
+            >
+              <input
+                type="email"
+                name="email"
+                ref={emailRef}
+                placeholder="youremail@mail.com"
+                className="focus:outline-none font-thin"
+              />
+            </div>
+            <label htmlFor="issue" className="hidden"></label>
+            <div
+              id="p_mes"
+              onClick={focusInput}
+              className="border-2 rounded-md px-4 py-2 bg-white w-full focus-within:border-purple-400"
+            >
+              <textarea
+                className="focus:outline-none font-thin w-full resize-none"
+                placeholder="Your Message"
+                name="issue"
+                ref={messageRef}
+              ></textarea>
+            </div>
+            <button
+              className="bg-purple-600 text-white px-4 py-2 rounded-md w-full"
+              type="button"
+            >
+              Send &rarr;
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+};
+
+export default Home;
