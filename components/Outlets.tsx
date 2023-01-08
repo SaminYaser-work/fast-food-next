@@ -79,7 +79,7 @@ export default function Outlets() {
       try {
         const data = await fetch(
           // TODO: Remove this key
-          `https://api.geoapify.com/v2/places?categories=catering&filter=circle:${lon},${lat},${RANGE}&limit=${LIMIT}&apiKey=7b87e6bb6bef4405ae58222a31079cc4`
+          `https://api.geoapify.com/v2/places?categories=catering&filter=circle:${lon},${lat},${RANGE}&limit=${LIMIT}&apiKey=${process.env.NEXT_PUBLIC_GEOAPIFY_API}`
         );
         const json: Geoapify = await data.json();
         console.log(json);
@@ -95,8 +95,7 @@ export default function Outlets() {
             method: "GET",
             headers: {
               // TODO: Remove this key
-              Authorization:
-                "563492ad6f91700001000001a0e2bbdec9e54497880f890730bdcdce",
+              Authorization: process.env.NEXT_PUBLIC_PEXELS_API || "",
             },
           }
         );
