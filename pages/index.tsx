@@ -19,24 +19,8 @@ const Home: NextPage = () => {
   // bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-slate-100 via-rose-300 to-rose-500
   return (
     <div className="w-full flex justify-center items-center">
-      <Head>
-        <title>SunBux</title>
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="true"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
-
       <main className="flex flex-col overflow-hidden min-w-full gap-10">
-        <section className="bg-gradient-to-b from-white via-rose-100 to-rose-200 shadow-[0px_20px_20px] shadow-rose-200">
+        <section className="bg-gradient-to-b from-white via-rose-100 to-rose-200 shadow-[0px_10px_20px] shadow-rose-200">
           <div className="flex flex-col md:flex-row justify-center items-center min-h-[50vh]">
             <div className="text-black flex flex-col item-center justify-center mx-2 text-center">
               <div className="flex flex-col place-items-center">
@@ -84,7 +68,7 @@ const Home: NextPage = () => {
             <p className="bg-pink-500 md:hidden text-white px-4 py-2 rounded-full w-fit mb-4 md:mb-10 font-thin text-sm">
               How it Works
             </p>
-            <div className="bg-pink-600 rounded-3xl shadow-xl">
+            <div className="bg-pink-600 rounded-3xl">
               <Image
                 className="w-[15rem] md:w-[25rem] rotate-[10deg]"
                 src={"/mobile.png"}

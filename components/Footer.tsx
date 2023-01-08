@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <div className="mx-5 md:mx-20 mb-8">
+    <div className="mx-5 md:mx-20 mb-8 mt-auto">
       <div className="bg-gray-300 min-h-[1px] mb-8" />
 
       <div className="flex flex-col items-center justify-center gap-10 mb-8">

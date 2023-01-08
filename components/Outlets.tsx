@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
-import { Geoapify } from "../api_types";
-import { Pexels } from "../pexels";
+import { Geoapify, Feature } from "../api_types";
+import { Pexels, Photo } from "../pexels";
+// import useLocalStorage from "./hooks/useLocalStorage";
 import Image from "next/image";
+import Link from "next/link";
 
 const LIMIT: number = 11;
-const RANGE: number = 400;
-
-type ImageLoaderProps = {
-  src: string;
-  width: number;
-  quality?: number;
-  root?: string;
-};
+const RANGE: number = 500;
 
 type Coordinates = {
   lon: number;
   lat: number;
+};
+
+type Data = {
+  info: Array<Feature>;
+  images: Array<Photo>;
 };
 
 export default function Outlets() {
@@ -77,8 +77,8 @@ export default function Outlets() {
     (async () => {
       try {
         const data = await fetch(
-          // TODO: Remove this key
-          `https://api.geoapify.com/v2/places?categories=catering&filter=circle:${lon},${lat},${RANGE}&limit=${LIMIT}&apiKey=${process.env.NEXT_PUBLIC_GEOAPIFY_API}`
+          `https://api.geoapify.com/v2/places?categories=catering&filter=circle:${lon},${lat},${RANGE}&limit=${LIMIT}&apiKey=${process.env.NEXT_PUBLIC_GEOAPIFY_API}`,
+          { cache: "force-cache" }
         );
         const json: Geoapify = await data.json();
         console.log(json);
@@ -93,9 +93,9 @@ export default function Outlets() {
           {
             method: "GET",
             headers: {
-              // TODO: Remove this key
               Authorization: process.env.NEXT_PUBLIC_PEXELS_API || "",
             },
+            cache: "force-cache",
           }
         );
 
@@ -121,42 +121,37 @@ export default function Outlets() {
               outlets?.features.map((feature, index) => (
                 <div
                   key={index}
-                  className="shadow-lg bg-white text-black hover:-translate-y-2 ease-in-out overflow-hidden rounded-xl transition-transform cursor-pointer"
+                  className="shadow-lg bg-white text-black hover:-translate-y-2 hover:shadow-2xl ease-in-out duration-500 overflow-hidden rounded-xl transition-transform cursor-pointer"
                 >
-                  <Image
-                    src={images?.photos[index].src.tiny || "/placeholder.png"}
-                    width={230}
-                    height={230}
-                    className="w-full"
-                    alt="food picture"
-                  />
+                  <Link href={`/outlet/${feature.properties.place_id}`}>
+                    <Image
+                      src={
+                        images?.photos[index]?.src.tiny || "/placeholder.png"
+                      }
+                      width={230}
+                      height={230}
+                      className="w-full"
+                      alt="food picture"
+                    />
 
-                  <div className="pl-3 mb-3">
-                    <div className="flex items-center justify-start gap-2">
-                      <p
-                        className={`rounded-full my-3 text-white bg-blue-400 font-thin text-xs px-2 py-1 w-fit`}
-                      >
-                        {feature.properties.categories[1]
-                          .split(".")[1]
-                          .toUpperCase()}
+                    <div className="pl-3 mb-3">
+                      <div className="flex items-center justify-start gap-2">
+                        <p
+                          className={`rounded-full my-3 text-white bg-blue-400 font-thin text-xs px-2 py-1 w-fit`}
+                        >
+                          {feature.properties.categories[1]
+                            .split(".")[1]
+                            .toUpperCase()}
+                        </p>
+                      </div>
+                      <h5 className="text-2xl mb-2">
+                        {feature.properties.name}
+                      </h5>
+                      <p className="font-thin text-sm text-slate-500">
+                        {feature.properties.address_line2}
                       </p>
-                      {/* <p
-                        className={`rounded-full my-3 text-white font-thin text-xs px-2 py-1 w-fit ${
-                          feature.properties.distance < 330
-                            ? "bg-green-500"
-                            : feature.properties.distance < 400
-                            ? "bg-yellow-600"
-                            : "bg-red-500"
-                        }`}
-                      >
-                        {feature.properties.distance}m
-                      </p> */}
                     </div>
-                    <h5 className="text-2xl mb-2">{feature.properties.name}</h5>
-                    <p className="font-thin text-sm text-slate-500">
-                      {feature.properties.address_line2}
-                    </p>
-                  </div>
+                  </Link>
                 </div>
               ))}
 

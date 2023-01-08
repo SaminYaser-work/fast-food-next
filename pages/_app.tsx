@@ -5,11 +5,11 @@ import Footer from "../components/Footer";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <div className="flex min-h-screen flex-col justify-start">
       <NavBar />
       <Component {...pageProps} />
       <Footer />
-    </>
+    </div>
   );
 }
 
