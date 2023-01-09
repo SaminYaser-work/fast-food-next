@@ -52,7 +52,7 @@ export default function () {
   return (
     <main className="my-20 mx-5 md:mx-20">
       <section className="flex flex-col-reverse md:flex-col justify-center items-center gap-10">
-        <Link href={"/"}>
+        <Link href={"/#locations"}>
           <button className="bg-rose-500 text-white px-4 py-2 rounded-lg font-thin">
             &larr; Go Back
           </button>

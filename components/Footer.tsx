@@ -46,7 +46,9 @@ export default function Footer() {
             Privacy
           </li>
           <li className="hover:underline underline-offset-8 cursor-pointer">
-            Site Design
+            <a href="https://github.com/SaminYaser-work/fast-food-next">
+              Github
+            </a>
           </li>
         </ul>
 

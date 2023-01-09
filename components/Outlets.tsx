@@ -18,6 +18,12 @@ type Data = {
   images: Array<Photo>;
 };
 
+const geoSettings = {
+  enableHighAccuracy: true,
+  maximumAge: 30000,
+  timeout: 27000,
+};
+
 export default function Outlets() {
   const [outlets, setOutlets] = useState<Geoapify>();
   const [images, setImages] = useState<Pexels>();
@@ -31,12 +37,6 @@ export default function Outlets() {
 
   const positionDenied = () => {
     console.log("Position denied");
-  };
-
-  const geoSettings = {
-    enableHighAccuracy: true,
-    maximumAge: 30000,
-    timeout: 27000,
   };
 
   useEffect(() => {
@@ -130,6 +130,8 @@ export default function Outlets() {
                       }
                       width={230}
                       height={230}
+                      placeholder="blur"
+                      blurDataURL="/placeholder2.png"
                       className="w-full"
                       alt="food picture"
                     />
@@ -173,3 +175,4 @@ export default function Outlets() {
     </>
   );
 }
+export async function getStaticProps() {}
