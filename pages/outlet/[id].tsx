@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useLocalStorage from "../../components/hooks/useLocalStorage";
 import { Geoapify } from "../../api_types";
+import { motion } from "framer-motion";
 
 const LEN = 300;
 
@@ -58,7 +58,11 @@ export default function () {
           </button>
         </Link>
         {(info?.features && info?.features.length > 0 && (
-          <div className="bg-gray-50 shadow-lg p-5 md:p-10 flex flex-col md:flex-row items-center justify-center gap-10">
+          <motion.div
+            animate={{ opacity: [0, 1], y: [-10, 0] }}
+            transition={{ duration: 0.5 }}
+            className="bg-gray-50 shadow-lg p-5 md:p-10 flex flex-col md:flex-row items-center justify-center gap-10"
+          >
             <div className="self-start">
               <div className="rounded-full font-bold bg-pink-600 px-4 py-1 text-white w-fit text-xs">
                 {getCategory(info.features[0].properties.categories)}
@@ -83,7 +87,7 @@ export default function () {
               src={`https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=${LEN}&height=${LEN}&center=lonlat:${info.features[0].properties.lon},${info.features[0].properties.lat}&zoom=14&apiKey=${process.env.NEXT_PUBLIC_GEOAPIFY_API}&marker=lonlat:${info.features[0].properties.lon},${info.features[0].properties.lat};type:material;color:%23ff3421;icontype:awesome`}
               alt="map"
             />
-          </div>
+          </motion.div>
         )) || (
           <div className="bg-gray-50 shadow-lg p-20 text-3xl">Loading...</div>
         )}

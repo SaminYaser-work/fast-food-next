@@ -4,6 +4,7 @@ import { Pexels, Photo } from "../pexels";
 // import useLocalStorage from "./hooks/useLocalStorage";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const LIMIT: number = 11;
 const RANGE: number = 500;
@@ -22,6 +23,28 @@ const geoSettings = {
   enableHighAccuracy: true,
   maximumAge: 30000,
   timeout: 27000,
+};
+
+// Animation
+const animeList = {
+  visible: {
+    opacity: 1,
+    transition: {
+      when: "beforeChildren",
+      staggerChildren: 0.1,
+    },
+  },
+  hidden: {
+    opacity: 0,
+    transition: {
+      when: "afterChildren",
+    },
+  },
+};
+
+const animeItem = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 },
 };
 
 export default function Outlets() {
@@ -112,14 +135,26 @@ export default function Outlets() {
 
   return (
     <>
-      <h2 className="text-5xl text-center">Outlets Near You</h2>
+      <h2 className="text-3xl md:text-5xl text-center">Outlets Near You</h2>
+      <div className="flex items-center justify-center gap-2 mt-3">
+        <Image src={"/pin.svg"} alt="icon" width={20} height={20} />
+        {outlets?.features[0].properties.city}
+        {", "}
+        {outlets?.features[0].properties.country}
+      </div>
       <div className="md:mx-20 mx-5 grid place-content-center">
         {(outlets?.features && outlets?.features.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,250px)] grid-flow-row p-8 auto-rows-fr gap-5 text-white max-w-6xl">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={animeList}
+            className="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,250px)] grid-flow-row p-8 md:auto-rows-fr gap-5 text-white max-w-6xl"
+          >
             {outlets?.features &&
               outlets?.features.length > 0 &&
               outlets?.features.map((feature, index) => (
-                <div
+                <motion.div
+                  variants={animeItem}
                   key={index}
                   className="shadow-lg bg-white text-black hover:-translate-y-2 hover:shadow-2xl ease-in-out duration-500 overflow-hidden rounded-xl transition-transform cursor-pointer"
                 >
@@ -154,7 +189,7 @@ export default function Outlets() {
                       </p>
                     </div>
                   </Link>
-                </div>
+                </motion.div>
               ))}
 
             <div
@@ -169,7 +204,7 @@ export default function Outlets() {
                 <h5 className="text-2xl">View More &rarr;</h5>
               </div>
             </div>
-          </div>
+          </motion.div>
         )) || <p>Loading...</p>}
       </div>
     </>
